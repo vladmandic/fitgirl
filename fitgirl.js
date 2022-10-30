@@ -94,7 +94,7 @@ async function update(games) {
   log.data('pages', { total: numPages });
   let newGames = [];
   for (let i = 1; i <= numPages; i++) {
-    log.data('pages', { page: i, total: numPages });
+    // log.data('pages', { page: i, total: numPages });
     const page = await html(`https://fitgirl-repacks.site/all-my-repacks-a-z/?lcp_page0=${i}`);
     const gamesElements = $(page).find('#lcp_instance_0').children();
     for (const li of gamesElements) {
@@ -102,7 +102,7 @@ async function update(games) {
       const name = $(a).text();
       if (!games.find((game) => game.name === name)) newGames.push({ id: id++, name, link: $(a).attr('href') });
     }
-    if (newGames.length === 0) break;
+    // if (newGames.length === 0) break;
   }
   const updated = [...games, ...newGames];
   log.data('details', { pages: numPages, existing: games.length, new: newGames.length, total: updated.length, todo: updated.filter((g) => !g.verified).length });
